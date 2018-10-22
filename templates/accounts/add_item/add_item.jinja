@@ -1,0 +1,7 @@
+{% extends 'base.jinja' %}
+{% import 'overview_pages.jinja' as overview_macros %}
+{% block content %}
+    {{ overview_macros.home_item_with_icon(icon='fa-building', icon_size='fa-3x', url_id='accounts:add-item-venue', link='', title='Venue', attr='') }}
+    {{ overview_macros.home_item_with_icon(icon='fa-people-carry', icon_size='fa-3x', url_id='accounts:add-item-service', link='', title='Service', attr='') }}
+    {{ overview_macros.home_item_with_icon(icon='fa-box-open', icon_size='fa-3x', url_id='accounts:add-item-object', link='', title='Object', attr='') }}
+{% endblock %}

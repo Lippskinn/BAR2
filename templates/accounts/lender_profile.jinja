@@ -1,0 +1,56 @@
+{# Lender profile page
+Author: Sebastian Brehm
+#}
+{% extends 'base.jinja' %}
+{% import 'user_macros.jinja' as user_macro %}
+
+{% block content %}
+    <div class="col-12">
+        <div class="row">
+            {{ user_macro.user_name(lender.user) }}
+
+            {{ user_macro.lender_type(lender) }}
+
+            {{ user_macro.full_name(lender.user) }}
+
+            {{ user_macro.lender_location(lender) }}
+
+            {{ user_macro.phone_number(lender) }}
+
+            {{ user_macro.phone_number_mobile(lender) }}
+
+            {{ user_macro.user_email(lender.user) }}
+
+            <div class="col-12">
+                <a href="{{ url('accounts:edit_account') }}" class="btn btn-primary">Profil bearbeiten</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12 mt-3">
+        <hr/>
+        <div class="row">
+            <div class="col-12">
+                <h3>Items</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 mb-2">
+                <a href="{{ url('accounts:add-item') }}" class="btn btn-primary">Neues Item hinzufügen</a>
+            </div>
+            {% for item in user_items %}
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ item.title }}</h5>
+                        <p class="card-text">{{ item.description }}</p>
+                        <a href="{{ url('accounts:edit-item', args = [item.id]) }}"
+                           class="btn btn-primary">bearbeiten</a>
+                        <a href="{{ url('accounts:delete-item', args = [item.id]) }}"
+                           class="btn btn-danger">löschen</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock %}

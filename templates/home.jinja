@@ -1,0 +1,21 @@
+{% extends 'base.jinja' %}
+{% import 'overview_pages.jinja' as overview_macros %}
+{% import 'utils_macros.jinja' as util_macros %}
+{% import 'form_macros.jinja' as forms %}
+{% block js_extra %}
+    <script src="{{ static('js/respool/home_filter.js') }}"></script>
+{% endblock %}
+{% block search_form %}
+    <div class="form-inline my-2 my-lg-0">
+        <input id="search-field" class="form-control mr-sm-2" type="search" placeholder="Sortiment durchsuchen"
+               aria-label="Search">
+    </div>
+{% endblock %}
+{% block content %}
+    <div class="col-12 col-sm-12 col-md-5 col-lg-4 col-xl-3 pt-2 bg-primary text-light">
+        {{ util_macros.filter_panel(types=types) }}
+    </div>
+    <div class="col-12 col-sm-12 col-md-7 col-lg-8 col-xl-9">
+        <div id="items-wrapper" class="row bg-light p-2"></div>
+    </div>
+{% endblock %}

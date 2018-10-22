@@ -1,0 +1,30 @@
+{% extends 'base.jinja' %}
+{% block content %}
+    <h1>Ressourcenpool Bamberg</h1>
+    <form action="" method="post">
+        {{ csrf_input }}
+    <div class="container">
+    <h1>Melden Sie sich im Ressourcenpool an!</h1>
+    <p>Bitte füllen Sie das folgende Formular aus.</p>
+    <hr>
+
+    <label for="email"><b>Email</b></label>
+    <input type="text" placeholder="Email" name="email" required>
+
+    <label for="psw"><b>Passwort</b></label>
+    <input type="password" placeholder="Passwort" name="psw" required>
+
+    <label for="psw-repeat"><b>Passwort wiederholen</b></label>
+    <input type="password" placeholder="Passwort wiederholen" name="psw-repeat" required>
+    <hr>
+
+    <p>Indem Sie einen Account erstellen stimmen Sie unseren <a href="#">Nutzungsbedingungen</a> zu.</p>
+    <button type="submit" class="registerbtn">Registrieren</button>
+  </div>
+
+  <div class="container signin">
+    <p>Sie haben bereits einen Account? <a href="loginpage">zum Login</a>.</p>
+  </div>
+</form>
+
+{% endblock %}

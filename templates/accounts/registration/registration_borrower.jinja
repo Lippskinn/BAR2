@@ -1,0 +1,58 @@
+{# Page where a user can registrate as a borrower
+Author: Sebastian Brehm
+#}
+{% extends 'base.jinja' %}
+{% import 'form_macros.jinja' as forms %}
+{% block content %}
+    <div class="col-12">
+        <div class="row justify-content-center">
+            <div class="col col-12 col-sm-10 col-md-6 col-lg-5 col-xl-4 border">
+                <h2>Bitte füllen Sie folgendes Formular aus, um sich anzumelden:</h2>
+                <form action="{{ url('accounts:registration_borrower') }}" method="post" enctype="multipart/form-data">
+                    <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+                    {{ borrower_form.non_field_errors() }}
+                     {% if borrower_form.errors %}
+                        <div class="alert">
+                            <span class="alert alert-danger" onclick="this.parentElement.style.display='none';">Bitte überprüfen Sie Ihre Angaben. &times;</span>
+                        </div>
+                    {% endif %}
+                    <div class="pb-4">
+                        <p>Vorname:</p>
+                        {{ forms.text_input(borrower_form.first_name) }}
+                    </div>
+
+                    <div class="pb-4">
+                        <p>Nachname:</p>
+                        {{ forms.text_input(borrower_form.last_name) }}
+                    </div>
+                    <div class="pb-4">
+                        <p>E-Mail-Adresse:
+                          {{ forms.text_input(borrower_form.email) }}
+                        </p>
+                    </div>
+                      <div class="pb-4">
+                        <p>Username:
+                          {{ forms.text_input(borrower_form.username) }}
+                        </p>
+                    </div>
+                      <div class="pb-4">
+                        <p>Passwort:
+                        {{ forms.password_input(borrower_form.password1) }}
+                        {{ forms.password_input(borrower_form.password2) }}
+                        </p>
+                    </div>
+                     <div class="pb-4">
+                        <p>Telefon:</p>
+                          {{ forms.telephone_input(borrower_form.phone_number) }}
+                    </div>
+                     <div class="pb-4">
+                        <p>Mobil:</p>
+                            {{ forms.telephone_input(borrower_form.phone_number_mobile) }}
+                    </div>
+                    <button type="submit" class="btn btn-primary">Registrierung abschließen</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

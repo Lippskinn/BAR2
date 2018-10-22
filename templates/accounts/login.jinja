@@ -1,0 +1,29 @@
+{% extends 'base.jinja' %}
+{% import 'form_macros.jinja' as forms %}
+
+{% block headline %}Login{% endblock %}
+{% block content %}
+    <div class="col-12">
+        <div class="row justify-content-center">
+            <div class="col col-12 col-sm-10 col-md-6 col-lg-5 col-xl-4 border text-center pt-3">
+                <form method="post">
+                    <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+                    {% for error in  form.non_field_errors() %}
+                        <p class="alert alert-danger" role="alert">
+                            {{ error }}
+                        </p>
+                    {% endfor %}
+                    {{ forms.text_input(form.username) }}
+                    {{ forms.password_input(form.password) }}
+
+                    <button type="submit" class="btn btn-primary">Login</button>
+                </form>
+
+                <div class="col-12 mt-4">
+                    <p><a href="{{ url('accounts:reset_password') }}">Passwort vergessen?</a></p>
+                    <p><a href="{{ url('accounts:registration') }}">Noch keinen Account?</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,17 @@
+{# Page where a user is redirected after filling out the registration form
+Author: Sebastian Brehm
+#}
+{% extends 'base.jinja' %}
+{% block headline %}Registrierung abgeschlossen{% endblock %}
+{% block content %}
+<div class="container">
+	<div class="row text-center">
+        <div class="col-sm-12 col-sm-offset-1">
+        <br><br> <h2 style="color:#0fad00">Sie haben sich erfolgreich für den Ressourcenpool registriert.</h2>
+        <h3>    Wir haben Ihnen eine Mail mit einem Link zur Aktivierung Ihres Kontos zugesendet.</h3>
+        <p style="font-size:20px;color:#5C5C5C;">   Bitte überprüfen Sie auch Ihren Spam-Ordner.</p>
+    <br><br>
+        </div>
+	</div>
+</div>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends 'base.jinja' %}
+{% import 'form_macros.jinja' as forms %}
+{% import 'item_form_macros.jinja' as item_forms %}
+{% block content %}
+    <div class="col-12">
+        <div class="row justify-content-center">
+            <div class="col col-12 col-sm-10 col-md-6 col-lg-5 col-xl-4 border pt-3"">
+                <form method="post" enctype="multipart/form-data">
+                    <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+                    {{ item_forms.item_base_attributes(item_base_form, forms, item) }}
+
+                    {{ item_forms.item_location(item_base_form, forms) }}
+
+                    {{ item_forms.item_dimension(item_base_form, forms) }}
+
+                    {{ item_forms.item_loan_agreement(item_base_form, forms) }}
+
+                    {{ item_forms.item_form_buttons(item_base_form, forms) }}
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

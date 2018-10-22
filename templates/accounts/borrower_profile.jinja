@@ -1,0 +1,28 @@
+{# Borrower profile page
+Author: Sebastian Brehm
+#}
+{% extends 'base.jinja' %}
+{% import 'user_macros.jinja' as user_macro %}
+
+{% block content %}
+    <div class="col-12">
+        <div class="row">
+            {{ user_macro.user_name(borrower.user) }}
+
+            {{ user_macro.full_name(borrower.user) }}
+
+            {{ user_macro.phone_number(borrower) }}
+
+            {{ user_macro.phone_number_mobile(borrower) }}
+
+            {{ user_macro.user_email(borrower.user) }}
+
+            <div class="col-12">
+                <a href="{{ url('accounts:edit_account') }}" class="btn btn-primary">Profil bearbeiten</a>
+            </div>
+        </div>
+    </div>
+</br>
+</br>
+
+{% endblock %}

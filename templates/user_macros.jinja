@@ -1,0 +1,94 @@
+{# author: Marius Hofmann #}
+
+{% macro user_name(base_user) -%}
+    <div class="col-12 mb-2">
+        <strong>Username:</strong>
+        {{ base_user.username }}
+    </div>
+{% endmacro %}
+
+
+{% macro full_name(base_user) -%}
+    {% if base_user.first_name or base_user.last_name %}
+        <div class="col-12 mb-2">
+            <strong>Name:</strong>
+            {{ base_user.first_name }}
+            {{ base_user.last_name }}
+        </div>
+    {% endif %}
+{% endmacro %}
+
+
+{% macro user_email(base_user) -%}
+    {% if base_user.email %}
+        <div class="col-12 mb-2">
+            <strong>E-Mail:</strong>
+            {{ base_user.email }}
+        </div>
+    {% endif %}
+{% endmacro %}
+
+
+{% macro phone_number(custom_user) -%}
+    {% if custom_user.phone_number %}
+        <div class="col-12 mb-2">
+            <strong>Telefon:</strong>
+            {{ custom_user.phone_number }}
+        </div>
+    {% endif %}
+{% endmacro %}
+
+
+{% macro phone_number_mobile(custom_user) -%}
+    {% if custom_user.phone_number_mobile %}
+        <div class="col-12 mb-2">
+            <strong>Telefon mobil:</strong>
+            {{ custom_user.phone_number_mobile }}
+        </div>
+    {% endif %}
+{% endmacro %}
+
+
+{% macro lender_type(lender) -%}
+    <div class="col-12 mb-2">
+        <strong>Typ:</strong>
+        {{ lender.get_type_display() }}
+    </div>
+{% endmacro %}
+
+
+{% macro lender_location(lender) -%}
+    {% if lender.location %}
+        <div class="col-12">
+            <strong>Anschrift</strong><br/>
+            {{ lender.user.first_name }}
+            {{ lender.user.last_name }}<br/>
+
+            {{ lender.location.street }}
+            {{ lender.location.house_number }}<br/>
+
+            {{ lender.location.city }}
+        </div>
+    {% endif %}
+{% endmacro %}
+
+
+{% macro lender_website(lender) -%}
+    {% if lender.website %}
+        <div class="col-12 mb-2">
+            <strong>Website:</strong>
+            {{ lender.website }}
+        </div>
+    {% endif %}
+{% endmacro %}
+
+
+{% macro lender_description(lender) -%}
+    {% if lender.description %}
+        <div class="col-12 mb-4">
+            <strong>Beschreibung</strong><br/>
+            {{ lender.description }}
+        </div>
+    {% endif %}
+{% endmacro %}
+

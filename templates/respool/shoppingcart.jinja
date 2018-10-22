@@ -1,0 +1,48 @@
+{% extends 'base.jinja' %}
+{% import 'utils_macros.jinja' as utils %}
+{% block content %}
+    <div class="col-12 p-4">
+    {% if lender_items %}
+        {% for lender, items in lender_items.items() %}
+            <div class="row">
+                <h5>Verleiher:
+                    <a href="{{ url('accounts:public-lender-profile', args=[lender.id]) }}">
+                        {{ lender.user.first_name }} {{ lender.user.last_name }} ({{ lender.user.username }})
+                    </a>
+                </h5>
+            </div>
+            <div class="row">
+                <div class="col-10">
+                    <div class="row pl-2">
+                        <div class="card-group">
+                        {% for item in items %}
+                            <div class="card w-20" style="width: 18rem;">
+                                <a href="{{ url('respool:item-detail', args=[item.id]) }}">
+                                    {{ utils.get_item_default_image(item) }}
+                                    <div class="card-body">
+                                        <p class="card-title">{{ item.title }}</p>
+                                        <a class="btn btn-danger" href="{{ url('respool:item-remove-from-cart', args=[item.id]) }}">Aus Warenkorb entfernen</a>
+                                    </div>
+                                </a>
+                            </div>
+                        {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-2">
+                    {% if lender.user.email %}
+                        <a class="btn btn-primary" href="{{ utils.mailto(lender, utils.request_mail_subject(items), utils.request_mail_content(lender, items, requesting_user)) }}">Anfrage-Email versenden</a>
+                    {% endif %}
+                </div>
+            </div>
+            {% if not loop.last %}
+                 <hr/>
+            {% endif %}
+        {% endfor %}
+    {% else %}
+        <div class="row">
+            <strong>Keine Items im Warenkorb!</strong>
+        </div>
+    {% endif %}
+    </div>
+{% endblock %}

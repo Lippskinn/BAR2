@@ -1,0 +1,15 @@
+{% extends 'base.jinja' %}
+{% block content %}
+    <div class="leftBar">
+        <ul class="sidebarNavigation">
+            <li><u>Verfügbarkeit</u></li>
+            <li><input class="checkBox" type="checkbox">verfügbar</li>
+            <li><input class="checkBox" type="checkbox">momentan entliehen</li>
+            </ul>
+    </div>
+
+    <div class="contentBox">
+         <input type="text" placeholder="Hier können Sie nach Ressourcen suchen">
+        <div class="resource"><a href="itemdetailpage"><img src="{{ static('images/tisch.jpg') }}" class="itemimage"></img></a></div>
+    </div>
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends 'base.jinja' %}
+{% block content %}
+    <h1>Ressource hochladen</h1>
+    <form action="" method="post">
+    {{ csrf_input }}
+    <div class="container">
+    <hr>
+
+    <label><b>Name der Ressource</b></label>
+    <input type="text" placeholder="Name" name="name" required>
+
+    <label><b>Beschreibung</b></label>
+    <input type="text" placeholder="Beschreiben Sie die Ressource!" name="beschreibung" required>
+
+    <button type="submit" class="registerbtn">Ressource hochladen</button>
+  </div>
+</form>
+
+{% endblock %}

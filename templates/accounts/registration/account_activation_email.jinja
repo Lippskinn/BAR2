@@ -1,0 +1,10 @@
+{# Mail which is send to users to activate their account
+Author: Sebastian Brehm
+#}
+{% block content %}
+{% autoescape off %}
+<h1>Hallo!</h1>
+    <h2>Bitte klicken Sie auf folgenden Link, um Ihren Account zu aktivieren: <br>
+     <a href="http://localhost:8000{{ url('accounts:activate', kwargs={'uidb64':uid, 'token':token}) }}">Account jetzt aktivieren</a>
+    {% endautoescape %}</h2>
+{% endblock %}

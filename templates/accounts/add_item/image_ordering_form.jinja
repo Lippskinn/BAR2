@@ -1,0 +1,37 @@
+{% extends 'base.jinja' %}
+{% import 'form_macros.jinja' as forms %}
+{% import 'utils_macros.jinja' as utils %}
+{% import 'item_form_macros.jinja' as item_forms %}
+
+{% block js_extra %}
+    <script src="{{ static('libs/html5sortable.min.js') }}"></script>
+    <script src="{{ static('js/respool/image_ordering.js') }}"></script>
+{% endblock %}
+
+{% block content %}
+<div class="col-12 p-4">
+    <input type="hidden" id="item-id" value="{{ item.id }}">
+
+    <div class="row pl-2">
+        <span>Bilder per Drag&Drop neu anordnen</span>
+    </div>
+
+    <div class="row sortable">
+    {% for image in item.images.all() %}
+        <div class="card m-2" style="width: 15rem;">
+            <img class="img-fluid" data-id="{{ image.id }}" src="{{ image.thumb.url }}" alt="Item default image">
+        </div>
+    {% endfor %}
+    </div>
+
+    <hr/>
+
+    <div class="row pl-2 pb-4">
+        <a class="btn btn-primary" href="{{ url('accounts:edit-item', args=[item.id]) }}">Zurück</a>
+        <a class="btn btn-primary ml-2" onclick="setImageOrder()">Speichern</a>
+    </div>
+    <div class="row">
+        <p id="imageOrderingMessage"></p>
+    </div>
+</div>
+{% endblock %}

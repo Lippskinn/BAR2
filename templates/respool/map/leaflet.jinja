@@ -1,0 +1,26 @@
+{% extends 'base.jinja' %}
+{% import 'utils_macros.jinja' as util_macros %}
+
+{% block js_extra %}
+    <script src="{{ static('libs/leaflet/leaflet.js') }}"></script>
+    <script src="{{ static('js/respool/map/map.js') }}"></script>
+    <script src="{{ static('libs/markercluster/leaflet.markercluster.js') }}"></script>
+{% endblock %}
+{% block css_extra %}
+    <link rel="stylesheet" href="{{ static('css/respool/map/map.css') }}"/>
+    <link rel="stylesheet" href="{{ static('libs/leaflet/leaflet.css') }}"/>
+    <link rel="stylesheet" href="{{ static('libs/markercluster/MarkerCluster.css') }}"/>
+    <link rel="stylesheet" href="{{ static('libs/markercluster/MarkerCluster.Default.css') }}"/>
+{% endblock %}
+{% block search_form %}
+    <div class="form-inline my-2 my-lg-0">
+        <input id="search-field" class="form-control mr-sm-2" type="search" placeholder="Sortiment durchsuchen"
+               aria-label="Search">
+    </div>
+{% endblock %}
+{% block content %}
+    <div class="col-12 col-sm-12 col-md-5 col-lg-4 col-xl-3 pt-2 bg-primary text-light">
+        {{ util_macros.filter_panel(types=types) }}
+    </div>
+    <div id="mapid" class="col-12 col-sm-12 col-md-7 col-lg-8 col-xl-9"></div>
+{% endblock %}

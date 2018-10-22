@@ -1,0 +1,157 @@
+{% extends 'base.jinja' %}
+{% import 'utils_macros.jinja' as utils %}
+{% block js_extra %}
+    <script src="{{ static('libs/lightbox2-master/dist/js/lightbox.js') }}"></script>
+    <script src="{{ static('libs/leaflet/leaflet.js') }}"></script>
+    <script src="{{ static('libs/Leaflet.fullscreen-1.0.2/dist/Leaflet.fullscreen.min.js') }}"></script>
+    <script src="{{ static('libs/pg-calendar-master/dist/js/pignose.calendar.full.js') }}"></script>
+    <script src="{{ static('js/respool/calendar.js') }}"></script>
+{% endblock %}
+{% block css_extra %}
+    <link rel="stylesheet" href="{{ static('libs/leaflet/leaflet.css') }}">
+    <link rel="stylesheet" href="{{ static('libs/lightbox2-master/dist/css/lightbox.css') }}">
+    <link rel="stylesheet" href="{{ static('libs/Leaflet.fullscreen-1.0.2/dist/leaflet.fullscreen.css') }}">
+    <link rel="stylesheet" href="{{ static('css/respool/calendar.css') }}">
+{% endblock %}
+
+{% block content %}
+    <div class="col-12 col-sm-12 col-md-7 col-lg-8 col-xl-9 mt-3">
+        <div class="row">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 mb-2">
+                {{ utils.get_item_image_ligthbox(item) }}
+            </div>
+            <div class="col-12 col-sm-12 col-md-12 col-lg-8 col-xl-8 mb-2">
+                <div class="col-12 mb-3">
+                    <strong>Beschreibung</strong><br/>
+                    {{ item.description }}
+                </div>
+                <hr/>
+                {% if item.dimension or item.weight %}
+                    <div class="col-12 mb-3">
+                        <div class="row">
+                            {% if item.dimension %}
+                                <div class="col-6">
+                                    <strong>Abmessungen (HxBxT)</strong><br/>
+                                    {{ utils.format_distance(item.dimension.height) }}
+                                    x {{ utils.format_distance(item.dimension.width) }}
+                                    x {{ utils.format_distance(item.dimension.depth) }}
+                                </div>
+                            {% endif %}
+
+                            {% if item.weight %}
+                                <div class="col-6">
+                                    <strong>Gewicht</strong><br/>
+                                    {{ utils.format_mass(item.weight) }}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endif %}
+
+                <div class="col-12 mb-3">
+                    <div class="row">
+                        {% if item.amount %}
+                            <div class="col-6">
+                                <strong>Anzahl</strong><br/>
+                                {{ item.amount }}
+                            </div><br/>
+                        {% endif %}
+                        <div class="col-6">
+                            <strong>Typ</strong><br/>
+                            {{ item.get_type_display() }}
+                        </div>
+                    </div>
+                </div>
+
+                <hr/>
+
+                <div class="col-12 mb-3">
+                    <strong>Adresse</strong><br/>
+                    {{ item.location.street }} {{ item.location.house_number }}<br/>
+                    {{ item.location.city }}
+                </div>
+
+                <div class="col-12 mb-3">
+                    <div class="row">
+                        <div class="col-6">
+                            <strong>Verleiher</strong><br/>
+                            <a href="{{ url('accounts:public-lender-profile', args=[item.lender.id]) }}">{{ item.lender.user.username }}</a>
+                        </div>
+
+                        {% if item.loan_agreement.file %}
+                            <div class="col-6">
+                                <strong>Beispiel Leihvertrag</strong><br/>
+                                <a href="{{ item.loan_agreement.file.url }}" target="_blank">Download</a>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <hr/>
+
+                <div class="col-12 mb-3">
+                    <strong>Verleihbedingungen</strong><br/>
+                    {% if item.loan %}
+                        {% if item.loan.caution %}
+                            <div class="col-12">
+                                Kaution: {{ utils.format_money(item.loan.caution) }}
+                            </div>
+                        {% endif %}
+                        {% if item.loan.single_rent %}
+                            <div class="col-12">
+                                Nutzungsgebühr: {{ utils.format_money(item.loan.single_rent) }}
+                            </div>
+                        {% endif %}
+                        {% if item.loan.rental_fee %}
+                            <div class="col-12 mt-2 ">
+                                <strong>Miete</strong><br/>
+                                {{ utils.format_money(item.loan.rental_fee.costs) }}
+                                pro {{ item.loan.rental_fee.get_interval_unit_display() }}
+                            </div>
+                        {% endif %}
+                    {% else %}
+                        <p>Ist ein Geschenk</p>
+                    {% endif %}
+                </div>
+
+                {% if item.categories.count() > 0 %}
+                    <hr/>
+                    <div class="col-12">
+                        <!-- TODO: add link to "all items of category" -->
+                        <strong>Kategorien:</strong> {{ item.categories.all()|join(', ', attribute='title') }}
+                    </div>
+                {% endif %}
+
+                <hr/>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 col-sm-12 col-md-5 col-lg-4 col-xl-3 mt-2">
+        <div class="row">
+            <div class="col-12 align-self-center mb-2">
+                {#        <div class="row mt-3 pl-2">#}
+                {% if not is_in_cart %}
+                    <a class="btn btn-primary" href="{{ url('respool:item-add-to-cart', args=[item.id]) }}">Zum
+                        Warenkorb
+                        hinzufügen</a>
+                {% else %}
+                    <a class="btn btn-danger" href="{{ url('respool:item-remove-from-cart', args=[item.id]) }}">Aus dem
+                        Warenkorb entfernen</a>
+                {% endif %}
+            </div>
+            <div class="col-12 align-self-center  mb-2">
+                {#        <div class="row mt-3 pl-2">#}
+                {% if item.location.latitude and item.location.longitude %}
+                    {{ utils.mini_map(item.location) }}
+                {% endif %}
+            </div>
+            <div class="col-12 align-self-center mb-2">
+                {#        </div>#}
+                {#        <div class="row mt-3 pl-2">#}
+                <div id="calendar" data-id="{{ item.id }}"></div>
+                {#        </div>#}
+                {#        </div>#}
+            </div>
+        </div>
+    </div>
+{% endblock %}

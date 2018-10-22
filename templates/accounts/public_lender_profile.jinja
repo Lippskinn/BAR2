@@ -1,0 +1,51 @@
+{# Author: Marius Hofmann #}
+
+{% extends 'base.jinja' %}
+{% import 'user_macros.jinja' as user_macro %}
+{% import 'utils_macros.jinja' as utils %}
+
+{% block content %}
+    <div class="col-5 mt-3">
+        <div class="row">
+            {{ user_macro.full_name(lender.user) }}
+
+            {{ user_macro.lender_type(lender) }}
+
+            {{ user_macro.phone_number(lender) }}
+
+            {{ user_macro.phone_number_mobile(lender) }}
+
+            {{ user_macro.user_email(lender.user) }}
+
+            {{ user_macro.lender_website(lender) }}
+        </div>
+    </div>
+
+    <div class="col-7 mt-3">
+        <div class="row">
+            {{ user_macro.lender_description(lender) }}
+
+            {{ user_macro.lender_location(lender) }}
+        </div>
+    </div>
+
+    {% if items.count() > 0 %}
+        <div class="col-12 m-2">
+            <hr/>
+            <h3>Items</h3>
+            <div class="row">
+                {% for item in items %}
+                    <div class="card w-20" style="width: 18rem;">
+                        <a href="{{ url('respool:item-detail', args=[item.id]) }}">
+                            {{ utils.get_item_default_image(item) }}
+                            <div class="card-body">
+                                <h5 class="card-title">{{ item.title }}</h5>
+                            </div>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+
+{% endblock %}

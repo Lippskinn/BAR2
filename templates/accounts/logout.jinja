@@ -1,0 +1,8 @@
+{% extends 'base.jinja' %}
+{% block headline %}Logout{% endblock %}
+{% block content %}
+    <div class="col-12 text-center">
+        <h1>Sie haben sich erfolgreich abgemeldet.</h1>
+        <h2> Zurück zu <a href="{{ url('respool:home') }}">Home</a></h2>
+    </div>
+{% endblock %}

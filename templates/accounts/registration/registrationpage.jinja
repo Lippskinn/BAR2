@@ -1,0 +1,11 @@
+{# Page where a user can choose between borrower or lender
+Author: Sebastian Brehm
+#}
+{% extends 'base.jinja' %}
+{% import 'overview_pages.jinja' as overview_macros %}
+{% block content %}
+    {{ overview_macros.home_item_with_icon(icon='fas fa-smile', icon_size='fa-3x', url_id='accounts:registration_lender', link='', title='Verleiher', attr='') }}
+    {{ overview_macros.home_item_with_icon(icon='far fa-smile', icon_size='fa-3x', url_id='accounts:registration_borrower', link='', title='Leiher', attr='') }}
+{% endblock %}
+
+

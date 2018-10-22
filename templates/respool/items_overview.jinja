@@ -1,0 +1,34 @@
+{% extends 'base.jinja' %}
+{% import 'utils_macros.jinja' as utils %}
+{% block content %}
+    <aside class="col-3 pt-2  bg-dark text-light" style="margin-top: -0.5em">
+        {% for category in categories %}
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input checkbox"
+                       id="check_category_{{ category.id }}"
+                       name="category_{{ category.id }}"
+                       value="true">
+                <label class="custom-control-label"
+                       for="check_category_{{ category.id }}">{{ category.title }}</label>
+            </div>
+            <p></p>
+        {% endfor %}
+    </aside>
+    <div class="col-9">
+        <div id="items-wrapper" class="row">
+            <div class="card-group">
+                 {% for item in items %}
+                    <div class="card w-20" style="width: 18rem;">
+                        <a href="{{ url('respool:item-detail', args=[item.id]) }}">
+                            {{ utils.get_item_default_image(item) }}
+                            <div class="card-body">
+                                <h5 class="card-title">{{ item.title }}</h5>
+                                <p class="card-text">{{ utils.get_item_shortened_desc(item) }}</p>
+                            </div>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
